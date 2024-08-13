@@ -1,19 +1,26 @@
 name: run main.py
 
 on:
- workflow_dispatch
-jobs:
- build:
-   runs-on: fedora-latest
-   steps:
-     - name: checkout repo content
-       uses: actions/checkout@v2 # checkout the repository content
-
-     - name: setup python
-       uses: actions/setup-python@v5
-       with:
-         python-version: '3.11' # install the python version needed
-
-     - name: install python packages
-       run: |
-         python -m pip install --upgrade pip
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      
+jobs: 
+  on_start:
+    runs-on: fedora-latest
+  
+    steps:
+      # We'll need to check out the repository so that we can edit the README.
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: setup python
+        uses: actions/setup-python@v5
+  
+  
+      # In README.md, switch step 0 for step 1.
+      - name: Update to step 1
+        uses: skills/action-update-step@v2
+        with:
+          python-version: '3.11' # install the python version need
